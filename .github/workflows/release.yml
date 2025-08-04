@@ -31,10 +31,10 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      # - name: Set up Git identity
-      #   run: |
-      #     git config user.name "${{ github.actor }}"
-      #     git config user.email "${{ github.actor }}@users.noreply.github.com"
+      - name: Set up Git identity
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
 
       - name: Bump version
         run: |
