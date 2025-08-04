@@ -1,5 +1,5 @@
 {
-  "name": "ui",
+  "name": "@sandbox-as-a-service/ui",
   "version": "1.0.1",
   "exports": {
     ".": {
