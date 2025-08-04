@@ -1,6 +1,6 @@
 {
   "name": "@sandbox-as-a-service/ui",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "exports": {
     ".": {
       "import": "./dist/components/ui/index.js",
