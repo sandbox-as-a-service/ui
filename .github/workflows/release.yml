@@ -1,0 +1,64 @@
+name: Release
+
+permissions:
+  contents: write # Required to push version bumps
+  packages: write # Required to publish packages
+
+env:
+  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Which semver segment to bump"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      # - name: Set up Git identity
+      #   run: |
+      #     git config user.name "${{ github.actor }}"
+      #     git config user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Bump version
+        run: |
+          pnpm version ${{ github.event.inputs.bump }}
+
+      - name: Push version bump
+        run: git push origin main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build-ui
+
+      - name: Publish to GitHub Packages
+        run: pnpm publish
+
+      - name: Summary
+        run: |
+          size=$(du -sh dist | cut -f1)
+          echo "## 📦 Published package size: $size" >> $GITHUB_STEP_SUMMARY
