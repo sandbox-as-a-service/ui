@@ -1,5 +1,3 @@
-/* styles/tokens.css */
-
 /* Needed so the app can use `dark:*` classes that Tailwind v4 generates */
 @custom-variant dark (&:is(.dark *));
 

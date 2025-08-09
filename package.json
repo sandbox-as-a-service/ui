@@ -6,11 +6,12 @@
       "import": "./dist/components/ui/index.js",
       "types": "./dist/components/ui/index.d.ts"
     },
-    "./styles/tokens.css": "./src/tokens.css"
+    "./styles/tokens.css": "./styles/tokens.css",
+    "./styles/source.css": "./styles/source.css"
   },
   "files": [
     "dist",
-    "src/tokens.css",
+    "styles",
     "README.md"
   ],
   "type": "module",
@@ -27,7 +28,8 @@
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "@sandbox-as-a-service/ui": "1.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
