@@ -4,9 +4,6 @@ permissions:
   contents: read
   packages: read
 
-env:
-  NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 on:
