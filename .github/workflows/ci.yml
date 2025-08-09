@@ -1,0 +1,36 @@
+name: CI
+
+permissions:
+  contents: read
+  packages: read
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  install:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js and pnpm
+        uses: sandbox-as-a-service/actions/setup-node-with-corepack@v1
+
+      - name: Build React App
+        run: pnpm build
+
+      - name: Build Component Library
+        run: pnpm build-ui
+
+      - name: Build Storybook
+        run: pnpm build-storybook
+
+      - name: Lint Code
+        run: pnpm lint
