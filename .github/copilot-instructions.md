@@ -51,14 +51,9 @@ Guidelines:
 - Avoid creating nested folders unless a component genuinely needs multiple tightly-coupled files (rare).
 
 ## Component Authoring Pattern
-- Export only named symbols (no `export default`).
-- Provide a prop interface: `export interface XProps { ... }`.
-- Prefer extending relevant intrinsic attribute interfaces (e.g. `React.ButtonHTMLAttributes<HTMLButtonElement>`).
-- Use `React.forwardRef` for focusable / externally controlled DOM elements.
-- Only add `displayName` when `forwardRef` or polymorphism would otherwise make the inferred name unclear.
-- Accept `className` and merge with internal classes (`cn()`).
-- Support variants via existing variant utility (if configured) instead of manual branching when possible.
-- Keep uncontrolled vs. controlled behavior explicit (e.g. `value` + `onValueChange` vs. internal state) only when required.
+- Use shadcn CLI to create new components. e.g. pnpm dlx shadcn@latest add alert.
+- Do not edit the generated code when using shadcn CLI.
+- When a new shadcn component is generated, add it to the index barrel file located at src/components/ui/index.ts
 
 ### Example Skeleton (Named Export Only)
 ```tsx
@@ -113,10 +108,10 @@ For every interactive primitive:
 
 ## Export Pattern
 - All primitives are named exports from their defining file.
-- `src/index.ts` (or equivalent) re-exports each primitive:
+- `src/components/ui/index.ts` re-exports each primitive:
   ```ts
-  export * from './components/accordion';
-  export * from './components/badge';
+  export * from './components/ui/accordion';
+  export * from './components/ui/badge';
   // ...
   ```
 - No default exports; ensures consistent tree-shaking and auto-import behavior.
@@ -131,18 +126,6 @@ For every interactive primitive:
 - Memoize expensive derived values with `useMemo` only when profiling indicates a benefit.
 - Defer non-critical side effects to `useEffect`.
 - Keep component surface lean; split rare heavy logic if it grows.
-
-## Positive Copilot Behaviors
-1. Generates a new primitive mirroring existing naming/style/export conventions.
-2. Adds ARIA attributes and keyboard handlers aligned with WAI-ARIA patterns.
-3. Reuses `cn()` and variant helpers instead of duplicating class strings.
-
-## Negative Copilot Behaviors (Reject)
-1. Introducing default exports.
-2. Adding unsupported package manager commands (npm/yarn).
-3. Creating speculative folders (`card/`, `button/`) not present in current structure.
-4. Inlining large style objects instead of Tailwind utilities.
-5. Emitting `any` or omitting prop typing.
 
 ## Documentation Pattern
 - Keep top-of-file comments concise (only when clarifying non-obvious behavior).
@@ -161,24 +144,17 @@ For every interactive primitive:
 - Semantic intent retained (conceptually MAJOR.MINOR.PATCH), but releases are triggered manually through a workflow dispatch choosing the version (no Git tags are used).
 - Ensure the chosen version aligns with nature of changes (breaking vs. additive vs. fix).
 - Update `package.json` version via the release workflow process; do not rely on local tagging.
-
-## Publishing
-- Do not import from build artifacts inside source.
-- Preserve stable public exports; avoid churn in re-export ordering that causes noisy diffs.
+- See `.github/workflows/release.yml`
 
 ## Checklist for a New Primitive
+- [ ] Use shadcn/ui CLI
 - [ ] Named export only
 - [ ] Props interface exported
 - [ ] `className` merged via `cn`
 - [ ] Accessibility (roles, labels, keyboard)
-- [ ] Variants integrated (if applicable)
 - [ ] No default export
 - [ ] No package manager misuse (pnpm only)
 - [ ] Optional displayName only if needed
 
 ## When Unsure
 Prefer smallest, most explicit primitive. Avoid speculative abstraction. Align with shadcn CLI output style before extending.
-
----
-
-These instructions steer Copilot toward producing accessible, type-safe, pnpm-aligned, shadcn-style primitives using named exports and the repository’s established conventions.
