@@ -9,7 +9,12 @@ High-signal guidance for GitHub Copilot in this component library.
 - Distribution: Consumed internally; focus on consistency and accessibility.
 
 ## Setup & Package Management
-- Package manager: pnpm (pinned via the `packageManager` field in `package.json`).
+- The repo uses `.gitbub/workflow/copilot-setup-steps.yml` to set up the environement.
+- The said workflow sets up:
+  - node v22
+  - pnpm
+  - runs pnpm install
+- If for some reason you dont have pnpm installed, use the instructions below to set it up.
 - Use Corepack to ensure correct version:
   ```
   corepack enable
