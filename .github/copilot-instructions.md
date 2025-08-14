@@ -15,7 +15,7 @@ Repository context:
 4. Predictable styling: Tailwind utility classes + minimal component-level CSS. No inline style objects unless dynamic and unavoidable.
 5. Deterministic rendering: Keep components pure; side effects live in hooks.
 6. Dark mode & theming: Use semantic class names / tokens (e.g. `text-fg-muted`, not hard-coded hex) if design tokens are present. If absent, prepare for future tokenization.
-7. Tree-shakeable exports: Each component exports from a barrel file (index.ts) to simplify consumer imports.
+7. Tree-shakeable exports: Each component folder has a local barrel (index.ts) and all public components aggregate ONLY in `src/components/ui/index.ts` (no root `src/index.ts`).
 8. Zero business logic: UI only. Push domain logic up to consumers.
 
 ## File & Directory Conventions
@@ -24,19 +24,19 @@ src/
   components/
     ui/
       button/
-        index.ts          # Barrel export: export { Button } from './Button';
-        Button.tsx        # Main component
-        Button.stories.tsx # Storybook story
-        Button.test.tsx   # Tests (if present)
+        Button.tsx          # Main component
+        Button.stories.tsx  # Storybook story
+        Button.test.tsx     # Tests (if present)
+        index.ts            # export { Button } from './Button'; export type { ButtonProps } from './Button';
       card/
-        index.ts
         Card.tsx
         Card.stories.tsx
-      ...
-    index.ts              # Root barrel: export * from './ui';
+        index.ts
+      ... (other components)
+      index.ts              # Central barrel: re-export all component barrels (e.g. export * from './button')
   lib/
-    utils.ts              # cn() and other generic helpers
-  hooks/                  # Shared hooks (if any)
+    utils.ts                # cn() and other generic helpers
+  hooks/                    # Shared hooks (if any)
 ```
 
 ## Component Authoring Pattern
@@ -63,7 +63,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'default', size = 'default', asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
-    
     return (
       <Comp
         className={cn(buttonVariants({ variant, size }), className)}
@@ -90,7 +89,7 @@ export { Button };
 - Prefer interaction tests: focus management, keyboard activation, ARIA attributes.
 - Snapshot only for stable markup (rare).
 - Test variants produce expected class combinations.
-- Example assertion: `expect(screen.getByRole('button', { name: /submit/i })).toHaveAttribute('data-variant','primary')`.
+- Example assertion: `expect(screen.getByRole('button', { name: /submit/i })).toHaveAttribute('data-variant','primary');`
 
 ## Tailwind Usage
 - Keep class lists ordered logically: layout → spacing → typography → color → interaction → state.
@@ -125,8 +124,17 @@ Examples:
 
 ## Import & Export Pattern
 - Each component folder: local file + `index.ts` exporting the public API.
-- Root barrel (e.g. `src/index.ts`) re-exports all component barrels.
-- Avoid deep path imports in consumers (prefer `import { Button } from '@org/ui'`).
+- Central barrel at `src/components/ui/index.ts` re-exports all component barrels. (Do NOT add a root `src/index.ts`.)
+- Always add new components to the central barrel so consumers can `import { Button } from '@org/ui';`.
+- Avoid deep path imports in consumers (no `@org/ui/components/ui/button/Button`).
+
+### Central Barrel Example
+```ts
+// src/components/ui/index.ts
+export * from './button';
+export * from './card';
+// export * from './alert'; (add future components here)
+```
 
 ## Utilities
 - Keep generic helpers (e.g., `cn`, focus trap, portal helpers) in `src/utils`.
