@@ -18,8 +18,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A stacked area chart";
-
 type DataPoint = { month: string; desktop: number; mobile: number };
 
 interface ChartAreaStackedProps {
