@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ChartAreaStacked } from "./time-series-chart";
+import { ChartAreaStacked } from "./chart-area-stacked";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

@@ -2,5 +2,5 @@ export * from "./alert";
 export * from "./button";
 export * from "./card";
 export * from "./chart";
-export * from "./time-series-chart";
-export * from "./time-series-chart-expanded";
+export * from "./chart-area-stacked";
+export * from "./chart-area-stacked-expanded";
