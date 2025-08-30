@@ -20,7 +20,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <div className="flex min-h-full min-w-4xl items-center justify-center">
+      <div className="flex min-h-full items-center justify-center">
         <Story />
       </div>
     ),

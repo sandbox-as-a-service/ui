@@ -19,26 +19,37 @@ export type PollFeedPageItem = {
   }
 }
 
-export const createPollFeedPageItem = (overrides?: Partial<PollFeedPageItem>): PollFeedPageItem => ({
-  pollId: "poll-1",
-  slug: "poll-1",
-  question: "What is your favorite color?",
-  status: "open",
-  category: "Politics",
-  openedAt: new Date().toISOString(),
-  createdAt: new Date().toISOString(),
-  options: [
-    {optionId: "option-1", label: "Yes"},
-    {optionId: "option-2", label: "No"},
-  ],
-  results: {
-    total: 233_123,
-    updatedAt: null,
-    warmingUp: false,
-    items: [
-      {optionId: "option-1", label: "Yes", count: 54_244, pct: 45},
-      {optionId: "option-2", label: "No", count: 111_213, pct: 55},
+export const createPollFeedPageItem = (overrides?: Partial<PollFeedPageItem>): PollFeedPageItem => {
+  const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min
+
+  const isoDaysAgo = (days: number) => new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
+
+  // createdAt should be older than openedAt; pick created between 10-30 days ago,
+  // and opened between 1 day and (createdDays - 1) days ago
+  const createdDays = randomInt(10, 30)
+  const openedDays = randomInt(1, Math.max(1, createdDays - 1))
+
+  return {
+    pollId: "poll-1",
+    slug: "poll-1",
+    question: "What is your favorite color?",
+    status: "open",
+    category: "Politics",
+    openedAt: isoDaysAgo(openedDays),
+    createdAt: isoDaysAgo(createdDays),
+    options: [
+      {optionId: "option-1", label: "Yes"},
+      {optionId: "option-2", label: "No"},
     ],
-  },
-  ...overrides,
-})
+    results: {
+      total: 233_123,
+      updatedAt: null,
+      warmingUp: false,
+      items: [
+        {optionId: "option-1", label: "Yes", count: 54_244, pct: 45},
+        {optionId: "option-2", label: "No", count: 111_213, pct: 55},
+      ],
+    },
+    ...overrides,
+  }
+}
