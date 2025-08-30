@@ -1,4 +1,6 @@
 import type { Preview } from "@storybook/react-vite";
+import "@fontsource-variable/geist"; // provides "Geist Variable"
+import "@fontsource-variable/geist-mono"; // provides "Geist Mono Variable"
 import "../src/index.css"; // Import Tailwind CSS styles
 
 const preview: Preview = {
@@ -10,6 +12,13 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <div>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default preview;
