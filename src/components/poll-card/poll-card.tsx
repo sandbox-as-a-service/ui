@@ -1,4 +1,4 @@
-import {Activity, BadgeCheck, Bookmark, Copy, Dot, Eye, Globe, Rewind, Sigma, UserPlus} from "lucide-react"
+import {Activity, BadgeCheck, Bookmark, Copy, Dot, Globe, Rewind, Sigma} from "lucide-react"
 import {useState} from "react"
 
 import {cn} from "../../lib/utils"
