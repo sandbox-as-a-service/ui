@@ -1,7 +1,6 @@
-import {TrendingUp} from "lucide-react"
 import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts"
 
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "./card"
+import {Card, CardContent} from "./card"
 import {type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "./chart"
 
 type DataPoint = {month: string; yes: number; no: number}
@@ -13,14 +12,9 @@ interface ChartAreaStackedExpandProps {
 
 export function ChartAreaStackedExpand({data, config}: ChartAreaStackedExpandProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Poll split over time</CardTitle>
-        <CardDescription>Share of Yes vs No by month (100% stacked)</CardDescription>
-      </CardHeader>
-
-      <CardContent>
-        <ChartContainer config={config}>
+    <Card className="rounded-md p-2 px-0 shadow-none">
+      <CardContent className="px-4">
+        <ChartContainer config={config} className="h-[200px]">
           <AreaChart
             accessibilityLayer
             data={data}
@@ -95,18 +89,6 @@ export function ChartAreaStackedExpand({data, config}: ChartAreaStackedExpandPro
           </AreaChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 leading-none font-medium">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="text-muted-foreground flex items-center gap-2 leading-none">
-              January - June 2024
-            </div>
-          </div>
-        </div>
-      </CardFooter>
     </Card>
   )
 }
