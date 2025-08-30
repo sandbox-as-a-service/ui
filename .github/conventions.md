@@ -1,169 +1,108 @@
 # Conventions
 
-## Component Authoring & Generated Patterns
+> Scope: This repo is a **UI component library** (not an app). Conventions below focus on authoring primitives, styling, exports, docs, and maintenance.
 
-- Use the `shadcn` CLI to create new components when appropriate. Example:
+---
 
-  ```sh
-  pnpm dlx shadcn@latest add alert
-  ```
+## Component Authoring
 
-- Do not hand-edit generated code from the `shadcn` CLI unless there is a strong justification.
-- When a new shadcn component is generated, add it to the index barrel file located at `src/components/ui/index.ts`.
+- **Source & naming**
+  - Files live under `src/components/ui/*`.
+  - Filenames: lower‑case, dash‑delimited (e.g. `toggle-group.tsx`).
+  - One primitive per file. Create subfolders **only** when a component needs tightly‑coupled parts (rare).
 
-Guidelines:
+- **Exports**
+  - **Named exports only**. No default exports.
+  - Re‑export from `src/components/ui/index.ts` (barrel).
 
-- Use lower-case, dash-delimited filenames (e.g. `toggle-group.tsx`).
-- Do not use path aliases like `@/components/ui/button` for imports; prefer relative paths.
-- Each primitive file should contain its logic and named exports only (no default exports).
-- Shared helpers live under `lib/` (or an existing utility directory).
-- Avoid creating nested folders unless a component genuinely needs multiple tightly-coupled files (rare).
+- **Imports (internal)**
+  - Prefer **relative** imports for internals (avoid `@/...`). Consumers import from the package root.
 
-## Accessibility Checklist
+- **shadcn usage**
+  - Use the `shadcn` CLI to scaffold when it fits the primitive.
+  - Don’t hand‑edit generated code unless justified. If you must, keep diffs minimal and library‑style (remove app‑only assumptions like hardcoded routes, `next/*`, etc.).
 
-For every interactive primitive:
+- **Props & patterns**
+  - Keep surfaces **small and explicit**. Prefer uncontrolled by default; add controlled props only when needed.
+  - Do not `forwardRef` explicitly. Ref is automatically passed in React 19.
+  - Expose an `asChild` slot **only if** composition requires it; document caveats.
+  - Accept `className` to extend styles. Merge with `cn` (see Utilities) rather than overwrite.
+  - Support `data-*` attributes for state (`data-state="open|closed"`, `data-disabled`), and reflect state on the DOM for styling.
 
-- Provide an accessible name (text content, `aria-label`, or `aria-labelledby`).
-- Ensure keyboard operability (Enter/Space activation, arrow navigation for composite widgets).
-- Preserve a visible focus outline; do not remove it.
-- Use correct ARIA attributes for stateful widgets (`aria-expanded`, `aria-selected`, `aria-checked`, etc.).
-- Properly label groups/relationships (`role="group"`, `aria-controls`, `aria-describedby`).
-- Do not rely solely on color for meaning.
-- Ensure sufficient color contrast (WCAG AA).
+## Accessibility Checklist (per interactive primitive)
+
+- **Name**: Ensure an accessible name (text, `aria-label`, or `aria-labelledby`).
+- **Keyboard**: Enter/Space activation; arrow navigation for composite widgets; Esc where expected (menus, dialogs).
+- **Focus**: Keep a visible outline; use `:focus-visible` styles; trap focus in modals; return focus on close.
+- **State**: Correct ARIA (`aria-expanded`, `aria-selected`, `aria-checked`, `aria-invalid`, etc.).
+- **Relationships**: Use `role="group"`, `aria-controls`, `aria-describedby` where applicable; pair `aria-labelledby` with ids created via `useId`.
+- **Semantics**: Match the expected role (e.g., `button` not `div` + click).
+- **Contrast & color**: WCAG AA; don’t rely on color alone.
 
 ## Tailwind & Styling
 
-- Order utilities logically; this is enforced by the Tailwind CSS plugin when present.
-- Prefer semantic variant utilities already established over ad-hoc conditionals.
-- Avoid introducing hard-coded colors if tokens / existing Tailwind config classes cover the case.
-- Keep responsive and dark variants minimal and purposeful.
+- **Tokens first**: Use Tailwind v4 theme tokens; avoid hard‑coded colors/spacing when tokens exist.
+- **Utility order**: Follow logical order (enforced by plugin when present).
+- **Variants**: Keep responsive/dark variants purposeful and minimal.
+- **State styling**: Prefer `data-[state]` attributes and ARIA state selectors over prop‑driven class branching.
+- **Global CSS**: The library should not require app‑level resets; each component carries its minimal base styles.
 
 ## Export Pattern
 
-- Use named exports for all primitives. Avoid default exports to ensure consistent tree-shaking and auto-import behavior.
-- `src/components/ui/index.ts` should re-export each primitive (named exports only).
+- Named exports for primitives and related sub‑primitives (e.g., `DropdownMenu`, `DropdownMenuItem`).
+- Barrel re‑exports from `src/components/ui/index.ts` only.
+- If subpath exports are provided, define them explicitly in `package.json#exports` (keep the API surface stable).
 
 ## Utilities
 
-- Centralize reusable helpers (for example `cn`, `composeRefs`) in `lib/`.
-- Avoid duplicating logic across primitives.
-- Do not introduce opinionated state-management helpers inside the UI layer.
+- Shared helpers reside in `src/lib/`.
+- Provide `cn` (class merge), `composeRefs`, and other tiny, generic utilities only; avoid app opinions or state management.
+- Do **not** duplicate helpers across primitives.
 
 ## Performance
 
-- Avoid unnecessary re-renders: do not create new object/array literals inside JSX when static.
-- Memoize expensive derived values with `useMemo` only after profiling shows benefit.
-- Defer non-critical side effects to `useEffect`.
-- Keep component surfaces lean; split heavy logic into separate utilities or hooks when needed.
+- Avoid creating new object/array literals in JSX when static.
+- Memoize heavy derived values **only after** profiling indicates benefit (`useMemo`, `useCallback` responsibly).
+- Use `useId` for deterministic ids needed by ARIA.
+- Keep bundles tree‑shakeable: no side‑effectful module code.
 
-## Documentation Pattern
+## Documentation (Storybook)
 
-- Keep top-of-file comments concise and only when clarifying non-obvious behavior.
-- Collocate minor helper types with the component; extract types only when they are reused elsewhere.
-- Avoid verbose internal comments for straightforward Tailwind class usage.
+- Each primitive has an MDX story with:
+  - Usage examples and a minimal props table.
+  - A11y notes (keyboard and ARIA behavior) and focus demo.
+  - Edge cases (RTL, long labels, disabled, loading, etc.).
+
+- Keep code comments concise; document non‑obvious behavior only.
 
 ## Migration & Deprecation
 
-- Use `@deprecated` JSDoc tags with guidance when superseding a primitive.
-- Prefer additive changes; remove deprecated APIs only alongside a coordinated release.
+- Use `@deprecated` JSDoc with guidance and timeline.
+- Prefer additive changes. Remove deprecated APIs alongside a coordinated release and an entry in the **Migration Guide**.
 
-## Security Considerations
+## Security
 
-- Avoid `dangerouslySetInnerHTML`. If it must be used, document sanitization expectations.
-- Do not widen the attack surface via unsafe prop spreading onto arbitrary elements.
+- Avoid `dangerouslySetInnerHTML`. If unavoidable, document sanitization expectations at the call site.
+- Don’t spread arbitrary props onto non‑host elements in ways that widen the attack surface.
 
-## Release & Versioning
+## TypeScript Patterns
 
-- Releases convey semantic intent (MAJOR.MINOR.PATCH conceptually). The repository triggers releases manually through a workflow dispatch. Do not rely on local Git tags.
-- Ensure the version selected for a release matches the nature of the changes (breaking vs. additive vs. fix).
-- Update the `package.json` version via the release workflow process.
-
-## When Unsure
-
-Prefer the smallest, most explicit primitive. Avoid speculative abstraction. Align with `shadcn` CLI output style before extending.
-
-# Code Conventions
-
-## Commit Message Format
-
-Follow Conventional Commits:
-
-### Format: type(scope?): subject
-
-**Allowed types:** feat, fix, docs, style, refactor, perf, test, chore, ci, build
-
-**Rules:**
-
-- Subject: imperative, concise (≤ 72 chars), no trailing period
-- Body (optional): provide additional context if needed
-- Footer (optional): use for BREAKING CHANGE: description or issue references
-
-### Examples
-
-```
-feat(parser): add ability to parse directional sentiment
-fix(api): handle null responses from upstream
-docs(readme): update setup instructions
-```
-
-## Naming Conventions
-
-### Files & Directories
-
-- **Files**: kebab-case (`get-poll-feed.ts`)
-- **Directories**: kebab-case (`poll-card`)
-
-### Functions & Types
-
-- **Functions**: camelCase factory functions (`createPollFeedSource`)
-- **Types**: PascalCase with descriptive suffixes (`type PollFeedSource`, `type GetPollFeedInput`)
-- **Constants**: SCREAMING_SNAKE_CASE for module-level constants
-
-### Variables
-
-Use descriptive names that convey purpose and context:
-
-- ✅ `pollTitle`, `userEmail`, `voteCount`
-- ❌ `title`, `email`, `count`
-- ✅ `currentPoll`, `selectedOption`
-- ❌ `x`, `y`,
-
-**Transformation Variables**
-
-Use specific names when the transformation is specific:
-
-- ✅ `clampedLimit` (after Math.min/Math.max clamp)
-- ✅ `resolvedQuorum` (after applying defaults)
-- ✅ `validatedLimit` (after schema/domain validation)
-
-**Collection Variables**
-
-Avoid vague prefixes like `effective*` on collections. Name by role instead:
-
-- ✅ `pageItems`, `visibleItems`, `currentPolls`
-- ❌ `effectivePolls`, `effectiveItems`
+- Use `type` aliases for shapes (keep it consistent).
+- Import types with `import type`.
+- Prefer functional programming style; avoid classes.
+- Naming:
+  - Functions: `camelCase` (`createPollFeedSource`).
+  - Types: `PascalCase` (`PollFeedSource`, `GetPollFeedInput`).
+  - Constants: `SCREAMING_SNAKE_CASE` for module‑level constants.
+  - Variables: descriptive (`currentPoll`, `selectedOption`, `voteCount`). Use specific names after transforms: `clampedLimit`, `resolvedQuorum`, `validatedLimit`.
 
 ## Import Organization
 
-```typescript
+```ts
 import {external} from "external-package"
 
 import {internal} from "./internal"
 import type {Type} from "./types"
 ```
 
-**Note**: Import ordering is automatically handled by `@trivago/prettier-plugin-sort-imports` - no manual sorting required.
-
-## Code Structure Patterns
-
-## TypeScript Patterns
-
-- Use `type` for all type definitions (avoid mixing `interface` and `type` keywords)
-- Prefix interfaces with purpose: `PollFeedSource`, `GetPollFeedInput`
-- Use `import type` rather than `import` when importing types and interfaces
-- Prefer functions over classes for implementation
-- Favor functional programming patterns over imperative loops
-  - ✅ `items.map(item => transform(item))`
-  - ❌ `for (const item of items) { ... }`
-  - ✅ `items.filter(predicate).find(condition)`
-  - ❌ Manual loop with break/continue statements
+> Note: Import ordering is handled by `@trivago/prettier-plugin-sort-imports`. No manual sorting.

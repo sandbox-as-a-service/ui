@@ -27,6 +27,10 @@ This repository is a TypeScript + React component library built with Vite. Below
 - Vite React plugin: `@vitejs/plugin-react-swc`
 - Linters / formatting: `eslint` + related plugins (project includes ESLint dev deps)
 - TypeScript compiler (`typescript`) and typings (`@types/*`)
+- Formatting: `prettier` is used for code formatting. The project uses the
+  `@trivago/prettier-plugin-sort-imports` Prettier plugin to keep import
+  ordering consistent across files, and `prettier-plugin-tailwindcss` to
+  automatically sort Tailwind CSS classnames.
 
 ## Notes on testing
 
