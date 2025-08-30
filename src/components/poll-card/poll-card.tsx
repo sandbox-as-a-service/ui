@@ -45,15 +45,18 @@ export function PollCard({poll, votedOptionId}: PollCardProps) {
           <div className="flex w-full justify-between gap-2 md:justify-end">
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button
-                  size="sm"
-                  variant="destructive"
-                  disabled={!currentVotedOptionId}
-                  onClick={() => setVotedFor(null)}
-                >
-                  <Rewind aria-hidden />
-                  Change opinion
-                </Button>
+                <span aria-disabled={!currentVotedOptionId || undefined}>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    disabled={!currentVotedOptionId}
+                    className={cn(!currentVotedOptionId && "pointer-events-none")} // let the span receive hover
+                    onClick={() => setVotedFor(null)}
+                  >
+                    <Rewind aria-hidden />
+                    Change opinion
+                  </Button>
+                </span>
               </TooltipTrigger>
               <TooltipContent>
                 <TypographyP>You may change your opinion once every 24 hours</TypographyP>
