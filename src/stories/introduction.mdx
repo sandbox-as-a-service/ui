@@ -1,11 +1,11 @@
-import { Meta, Title, Subtitle } from "@storybook/addon-docs/blocks";
+import {Meta, Subtitle, Title} from "@storybook/addon-docs/blocks"
 
 <Meta title="Overview/Introduction" />
 
 <Title>Project Introduction</Title>
 <Subtitle>
-  How we author, view, and validate UI in isolation. Design System lives in
-  Confluence/Notion; Storybook is the implementation and review surface.
+  How we author, view, and validate UI in isolation. Design System lives in Confluence/Notion; Storybook is
+  the implementation and review surface.
 </Subtitle>
 
 ---
@@ -51,29 +51,30 @@ pnpm test:stories        # Interaction tests via test-runner
 
 ```tsx
 // Button.stories.tsx
-import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "@/components/button";
+import type {Meta, StoryObj} from "@storybook/react"
+
+import {Button} from "@/components/button"
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
-  args: { label: "Continue" },
+  args: {label: "Continue"},
   parameters: {
-    a11y: { disable: false },
-    controls: { expanded: true },
+    a11y: {disable: false},
+    controls: {expanded: true},
   },
-};
-export default meta;
+}
+export default meta
 
-export type Story = StoryObj<typeof Button>;
+export type Story = StoryObj<typeof Button>
 
 export const Primary: Story = {
-  args: { variant: "primary" },
-};
+  args: {variant: "primary"},
+}
 
 export const Destructive: Story = {
-  args: { variant: "destructive" },
-};
+  args: {variant: "destructive"},
+}
 ```
 
 **Conventions**: Prefer CSF (stories as data), descriptive story names, realistic defaults via `args`. Avoid deep imports

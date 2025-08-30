@@ -1,41 +1,24 @@
-"use client";
+"use client"
 
-import { TrendingUp } from "lucide-react";
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import {TrendingUp} from "lucide-react"
+import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts"
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./card";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "./chart";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "./card"
+import {type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "./chart"
 
-type DataPoint = { month: string; yes: number; no: number };
+type DataPoint = {month: string; yes: number; no: number}
 
 interface ChartAreaStackedExpandProps {
-  data: DataPoint[];
-  config: ChartConfig;
+  data: DataPoint[]
+  config: ChartConfig
 }
 
-export function ChartAreaStackedExpand({
-  data,
-  config,
-}: ChartAreaStackedExpandProps) {
+export function ChartAreaStackedExpand({data, config}: ChartAreaStackedExpandProps) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Poll split over time</CardTitle>
-        <CardDescription>
-          Share of Yes vs No by month (100% stacked)
-        </CardDescription>
+        <CardDescription>Share of Yes vs No by month (100% stacked)</CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -73,30 +56,24 @@ export function ChartAreaStackedExpand({
                   hideLabel
                   className="w-[200px]"
                   formatter={(value, name, item, index) => {
-                    const payload: Omit<DataPoint, "month"> = item?.payload;
+                    const payload: Omit<DataPoint, "month"> = item?.payload
 
-                    const raw = payload[name as keyof typeof payload];
-                    const total = payload.yes + payload.no;
+                    const raw = payload[name as keyof typeof payload]
+                    const total = payload.yes + payload.no
 
-                    const frac = Number(value) ? raw / total : 0;
+                    const frac = Number(value) ? raw / total : 0
 
                     return (
                       <>
-                        {index === 0 && (
-                          <div className="basis-full font-semibold">
-                            {item.payload.month}
-                          </div>
-                        )}
+                        {index === 0 && <div className="basis-full font-semibold">{item.payload.month}</div>}
                         <div
                           className="h-2.5 w-2.5 rounded-[2px]"
-                          style={{ background: `var(--color-${name})` }}
+                          style={{background: `var(--color-${name})`}}
                         />
                         {config[name as keyof typeof config]?.label ?? name}
-                        <span className="ml-auto font-mono">
-                          {(frac * 100).toFixed(2)}%
-                        </span>
+                        <span className="ml-auto font-mono">{(frac * 100).toFixed(2)}%</span>
                       </>
-                    );
+                    )
                   }}
                 />
               }
@@ -133,5 +110,5 @@ export function ChartAreaStackedExpand({
         </div>
       </CardFooter>
     </Card>
-  );
+  )
 }

@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { fn } from "storybook/test";
-import { Settings, Search, Plus, Download, ArrowRight } from "lucide-react";
-import { Button } from "./button";
+import type {Meta, StoryObj} from "@storybook/react-vite"
+import {ArrowRight, Download, Plus, Search, Settings} from "lucide-react"
+import {fn} from "storybook/test"
+
+import {Button} from "./button"
 
 const meta = {
   title: "shadcn/Button",
@@ -18,28 +19,21 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: { type: "select" },
-      options: [
-        "default",
-        "destructive",
-        "outline",
-        "secondary",
-        "ghost",
-        "link",
-      ],
+      control: {type: "select"},
+      options: ["default", "destructive", "outline", "secondary", "ghost", "link"],
       description: "The visual style variant of the button",
     },
     size: {
-      control: { type: "select" },
+      control: {type: "select"},
       options: ["default", "sm", "lg", "icon"],
       description: "The size of the button",
     },
     asChild: {
-      control: { type: "boolean" },
+      control: {type: "boolean"},
       description: "Change the component to use Radix's Slot for composition",
     },
     disabled: {
-      control: { type: "boolean" },
+      control: {type: "boolean"},
       description: "Whether the button is disabled",
     },
   },
@@ -47,17 +41,17 @@ const meta = {
     onClick: fn(),
     children: "Button",
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof Button>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Primary story - the main interactive example
 export const Default: Story = {
   args: {
     children: "Button",
   },
-};
+}
 
 // Real-world use case examples
 export const DestructiveAction: Story = {
@@ -72,7 +66,7 @@ export const DestructiveAction: Story = {
       },
     },
   },
-};
+}
 
 export const CallToAction: Story = {
   args: {
@@ -86,7 +80,7 @@ export const CallToAction: Story = {
       },
     },
   },
-};
+}
 
 export const IconButton: Story = {
   args: {
@@ -102,7 +96,7 @@ export const IconButton: Story = {
       },
     },
   },
-};
+}
 
 export const ButtonWithLeadingIcon: Story = {
   args: {
@@ -120,7 +114,7 @@ export const ButtonWithLeadingIcon: Story = {
       },
     },
   },
-};
+}
 
 export const ButtonWithTrailingIcon: Story = {
   args: {
@@ -138,7 +132,7 @@ export const ButtonWithTrailingIcon: Story = {
       },
     },
   },
-};
+}
 
 export const DownloadButton: Story = {
   args: {
@@ -157,7 +151,7 @@ export const DownloadButton: Story = {
       },
     },
   },
-};
+}
 
 export const Disabled: Story = {
   args: {
@@ -171,7 +165,7 @@ export const Disabled: Story = {
       },
     },
   },
-};
+}
 
 // Visual showcase stories for comprehensive overview
 export const AllVariants: Story = {
@@ -193,7 +187,7 @@ export const AllVariants: Story = {
       },
     },
   },
-};
+}
 
 export const AllSizes: Story = {
   render: () => (
@@ -209,9 +203,8 @@ export const AllSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "All available button sizes. Use the Controls panel to test individual sizes interactively.",
+        story: "All available button sizes. Use the Controls panel to test individual sizes interactively.",
       },
     },
   },
-};
+}

@@ -1,15 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { MoreHorizontal } from "lucide-react";
-import {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
-} from "./card";
-import { Button } from "./button";
+import type {Meta, StoryObj} from "@storybook/react-vite"
+import {MoreHorizontal} from "lucide-react"
+
+import {Button} from "./button"
+import {Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "./card"
 
 const meta = {
   title: "shadcn/Card",
@@ -26,14 +19,14 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     className: {
-      control: { type: "text" },
+      control: {type: "text"},
       description: "Additional CSS classes to apply to the card",
     },
   },
-} satisfies Meta<typeof Card>;
+} satisfies Meta<typeof Card>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 // Primary story - the main interactive example
 export const Default: Story = {
@@ -41,16 +34,14 @@ export const Default: Story = {
     <Card>
       <CardHeader>
         <CardTitle>Card Title</CardTitle>
-        <CardDescription>
-          Card description goes here to describe the content.
-        </CardDescription>
+        <CardDescription>Card description goes here to describe the content.</CardDescription>
       </CardHeader>
       <CardContent>
         <p>This is the main content of the card.</p>
       </CardContent>
     </Card>
   ),
-};
+}
 
 // Real-world use case examples
 export const WithAction: Story = {
@@ -58,9 +49,7 @@ export const WithAction: Story = {
     <Card>
       <CardHeader>
         <CardTitle>Card with Action</CardTitle>
-        <CardDescription>
-          This card has an action button in the header.
-        </CardDescription>
+        <CardDescription>This card has an action button in the header.</CardDescription>
         <CardAction>
           <Button variant="ghost" size="icon" aria-label="More options">
             <MoreHorizontal />
@@ -79,16 +68,14 @@ export const WithAction: Story = {
       },
     },
   },
-};
+}
 
 export const WithFooter: Story = {
   render: () => (
     <Card>
       <CardHeader>
         <CardTitle>Card with Footer</CardTitle>
-        <CardDescription>
-          This card includes a footer with actions.
-        </CardDescription>
+        <CardDescription>This card includes a footer with actions.</CardDescription>
       </CardHeader>
       <CardContent>
         <p>Content with footer actions below.</p>
@@ -106,7 +93,7 @@ export const WithFooter: Story = {
       },
     },
   },
-};
+}
 
 export const ContentOnly: Story = {
   render: () => (
@@ -123,7 +110,7 @@ export const ContentOnly: Story = {
       },
     },
   },
-};
+}
 
 // Visual showcase showing component structure
 export const AllSections: Story = {
@@ -139,10 +126,7 @@ export const AllSections: Story = {
         </CardAction>
       </CardHeader>
       <CardContent>
-        <p>
-          This card demonstrates all sections: header with action, content, and
-          footer.
-        </p>
+        <p>This card demonstrates all sections: header with action, content, and footer.</p>
       </CardContent>
       <CardFooter>
         <Button variant="outline">Secondary</Button>
@@ -153,9 +137,8 @@ export const AllSections: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Complete card structure showing header with action, content, and footer sections.",
+        story: "Complete card structure showing header with action, content, and footer sections.",
       },
     },
   },
-};
+}

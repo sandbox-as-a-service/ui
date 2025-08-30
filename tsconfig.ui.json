@@ -30,8 +30,5 @@
     }
   },
   "include": ["src/components/ui/**/*", "src/lib/**/*"],
-  "exclude": [
-    "src/components/ui/**/*.test.tsx",
-    "src/components/ui/**/*.stories.tsx"
-  ]
+  "exclude": ["src/components/ui/**/*.test.tsx", "src/components/ui/**/*.stories.tsx"]
 }

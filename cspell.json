@@ -1,0 +1,6 @@
+{
+  "version": "0.2",
+  "ignorePaths": ["supabase"],
+  "ignoreWords": ["turbopack", "supabase", "treeify", "trivago", "timestamptz"],
+  "words": ["dedup"]
+}
