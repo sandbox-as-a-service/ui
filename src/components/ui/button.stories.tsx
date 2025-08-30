@@ -7,16 +7,6 @@ import {Button} from "./button"
 const meta = {
   title: "shadcn/Button",
   component: Button,
-  parameters: {
-    layout: "centered",
-    docs: {
-      description: {
-        component:
-          "A versatile button component with multiple variants and sizes, built with class-variance-authority for consistent styling.",
-      },
-    },
-  },
-  tags: ["autodocs"],
   argTypes: {
     variant: {
       control: {type: "select"},

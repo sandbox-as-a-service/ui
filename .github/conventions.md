@@ -1,6 +1,6 @@
 # Conventions
 
-> Scope: This repo is a **UI component library** (not an app). Conventions below focus on authoring primitives, styling, exports, docs, and maintenance.
+> Scope: Conventions below focus on authoring primitives, styling, exports, docs, and maintenance.
 
 ---
 

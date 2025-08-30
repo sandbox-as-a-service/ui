@@ -2,29 +2,14 @@ import type {Meta, StoryObj} from "@storybook/react-vite"
 
 import {ChartAreaStacked} from "./chart-area-stacked"
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "shadcn/time-series-chart",
+  title: "shadcn/Chart Area Stacked",
   component: ChartAreaStacked,
-  parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: "centered",
-  },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
-  decorators: [
-    (Story) => (
-      <div className="md:w-2xl lg:w-4xl xl:w-5xl 2xl:w-7xl" data-testid="storybook-style-decorator">
-        <Story />
-      </div>
-    ),
-  ],
 } satisfies Meta<typeof ChartAreaStacked>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const WithHalfYearData: Story = {
   args: {
     data: [

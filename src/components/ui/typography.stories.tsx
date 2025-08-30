@@ -16,9 +16,6 @@ import {
 
 const meta = {
   title: "shadcn/Typography",
-  parameters: {
-    layout: "fullscreen",
-  },
 } satisfies Meta
 
 export default meta

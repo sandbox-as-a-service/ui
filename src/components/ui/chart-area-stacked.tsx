@@ -1,5 +1,3 @@
-"use client"
-
 import {TrendingUp} from "lucide-react"
 import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts"
 
@@ -50,7 +48,7 @@ export function ChartAreaStacked({data, config}: ChartAreaStackedProps) {
               tickMargin={8}
               tickFormatter={(value) => formatMonthLabel(String(value), {shortYear: true})}
             />
-            <YAxis tickLine={false} axisLine={false} tickMargin={8} tickCount={3} />
+            <YAxis tickLine={false} axisLine={false} tickMargin={8} tickCount={3} width={30} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
             <Area
               dataKey="mobile"

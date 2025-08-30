@@ -1,5 +1,7 @@
 # AI Coding Assistant Instructions
 
+> Scope: This repo is a **UI component library** (not an app)
+
 ## Instruction Files
 
 - [`conventions.md`](./conventions.md) - Code style, naming, and commit message formats
