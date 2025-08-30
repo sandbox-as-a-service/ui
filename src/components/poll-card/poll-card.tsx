@@ -1,4 +1,4 @@
-import {Activity, BadgeCheck, Bookmark, Copy, Dot, Globe, Rewind, Sigma} from "lucide-react"
+import {BadgeCheck, Bookmark, Copy, Dot, Globe, RefreshCcw, Rewind, Sigma} from "lucide-react"
 import {useState} from "react"
 
 import {cn} from "../../lib/utils"
@@ -34,10 +34,6 @@ export function PollCard({poll, votedOptionId}: PollCardProps) {
           <div className="flex w-full flex-row justify-between gap-2 md:justify-start">
             <PollCategoryBadge category={poll.category?.toUpperCase() ?? ""} />
             <Badge variant="outline" className="bg-green-200">
-              <Activity />
-              {poll.status.toUpperCase()}
-            </Badge>
-            <Badge variant="outline" className="bg-green-200">
               <Globe />
               {poll.results.warmingUp ? "QUORUM PENDING" : "QUORUM REACHED"}
             </Badge>
@@ -62,9 +58,26 @@ export function PollCard({poll, votedOptionId}: PollCardProps) {
                 <TypographyP>You may change your opinion once every 24 hours</TypographyP>
               </TooltipContent>
             </Tooltip>
-            <Button variant="secondary" size="sm">
-              <Copy aria-label="Copy Link" />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button size="sm" variant="secondary">
+                  <RefreshCcw />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <TypographyP>Refresh poll</TypographyP>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="secondary" size="sm">
+                  <Copy aria-label="Copy Link" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <TypographyP>Copy link</TypographyP>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
         <CardTitle className="flex flex-row items-center">

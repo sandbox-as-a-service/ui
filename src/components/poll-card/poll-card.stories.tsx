@@ -7,7 +7,7 @@ const meta = {
   title: "OpReg/PollCard",
   component: PollCard,
   parameters: {
-    layout: "padded",
+    layout: "centered",
   },
 } satisfies Meta<typeof PollCard>
 
