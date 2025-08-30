@@ -1,30 +1,20 @@
-# Copilot Instructions for sandbox-as-a-service/ui
-
-High-signal guidance for GitHub Copilot in this component library.
+# AI Coding Assistant Instructions
 
 ## Instruction Files
 
 - [`conventions.md`](./conventions.md) - Code style, naming, and commit message formats
 - [`tech-stack.md`](./tech-stack.md) - Overview of the tech stack and tools used
 
-## Repository Context
+## General Guidelines
 
-- Purpose: Central, reusable UI primitives for the Sandbox as a Service ecosystem.
-- Tech stack: TypeScript, Tailwind CSS utilities, shadcn CLI–generated primitives.
-- Styling paradigm: Utility-first (Tailwind) with variant helpers (e.g. class-variance-authority if present).
-- Distribution: Consumed internally; focus on consistency and accessibility.
+**Best Practice vs Technical Possibility:**
+When providing solutions, clearly distinguish between what's technically possible and what's considered best practice or industry standard. Always explain the trade-offs and recommend the approach that aligns with established conventions and maintainability.
 
-## Repository & Tooling
+**Domain-Driven Design Terminology:**
+Use "domain logic" instead of "business logic" for consistency with our domain-driven design architecture. This reinforces that our use cases contain domain-specific rules and operations within the hexagonal architecture pattern.
 
-- Use Node 22 and `pnpm` for package management.
-- Use Corepack to ensure the correct `pnpm` version:
+Examples:
 
-  ```
-  corepack enable
-  ```
-
-- All repository commands and scripts must use `pnpm` (for example `pnpm install`, `pnpm build-ui`, `pnpm storybook`).
-- Only commit `pnpm-lock.yaml`. Do NOT add `package-lock.json` or `yarn.lock`.
-- When adding dependencies use `pnpm add <pkg>` (or `-D` for dev dependencies).
-
-> Note: Detailed repository conventions (naming, tooling, component patterns, accessibility, styling, release notes) were consolidated into `./conventions.md`. Please edit that file for convention updates.
+- ✅ "You could commit API keys directly to the codebase, but it's not secure best practice. Use environment variables instead."
+- ✅ "While `any` type works technically, it defeats TypeScript's purpose. Use proper typing for better code safety."
+- ✅ "Direct database queries in components are possible, but violate separation of concerns. Use the established adapter pattern."
