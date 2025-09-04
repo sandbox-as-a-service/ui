@@ -1,7 +1,7 @@
 import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts"
 
-import {type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "../chart"
-import {Card, CardContent} from "./card"
+import {Card, CardContent} from "../card"
+import {type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "./chart"
 
 type DataPoint = {month: string; yes: number; no: number}
 

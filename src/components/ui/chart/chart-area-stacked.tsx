@@ -1,8 +1,8 @@
 import {TrendingUp} from "lucide-react"
 import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts"
 
-import {type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "../chart"
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "./card"
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "../card"
+import {type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "./chart"
 
 type DataPoint = {month: string; desktop: number; mobile: number}
 

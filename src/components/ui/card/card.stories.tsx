@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from "@storybook/react-vite"
 import {MoreHorizontal} from "lucide-react"
 
-import {Button} from "./button"
+import {Button} from "../button"
 import {Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "./card"
 
 const meta = {
