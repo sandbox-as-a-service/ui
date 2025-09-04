@@ -1,10 +1,9 @@
-import {BadgeCheck, Bookmark, Copy, Dot, Globe, RefreshCcw, Rewind, Sigma} from "lucide-react"
+import {BadgeCheck, Bookmark, Copy, Dot, Globe, RefreshCcw, Rewind, Sigma, Tag} from "lucide-react"
 import {useState} from "react"
 
 import {cn} from "../../lib/utils"
-import {PollCategoryBadge} from "../poll-category-badge/poll-category-badge"
 import {TypographyMuted, TypographyP} from "../ui"
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "../ui/accordion/accordon"
+import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "../ui/accordion/accordion"
 import {Badge} from "../ui/badge"
 import {Button} from "../ui/button"
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "../ui/card"
@@ -32,8 +31,11 @@ export function PollCard({poll, votedOptionId}: PollCardProps) {
       <CardHeader>
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row">
           <div className="flex w-full flex-row justify-between gap-2 md:justify-start">
-            <PollCategoryBadge category={poll.category?.toUpperCase() ?? ""} />
-            <Badge variant="outline" className="bg-green-200">
+            <Badge variant="outline">
+              <Tag />
+              {poll.category?.toUpperCase() ?? ""}
+            </Badge>
+            <Badge variant="outline">
               <Globe />
               {poll.results.warmingUp ? "QUORUM PENDING" : "QUORUM REACHED"}
             </Badge>
@@ -158,7 +160,7 @@ export function PollCard({poll, votedOptionId}: PollCardProps) {
         </div>
       </CardContent>
       <CardFooter className="justify-between">
-        <Badge variant="outline" className="bg-primary/20 text-xs">
+        <Badge variant="outline">
           <Sigma />
           {poll.results.total.toLocaleString("en-US")} TOTAL VOTES
         </Badge>
