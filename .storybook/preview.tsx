@@ -21,7 +21,9 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <div className="flex min-h-full items-center justify-center">
-        <Story />
+        <div className="w-full">
+          <Story />
+        </div>
       </div>
     ),
   ],

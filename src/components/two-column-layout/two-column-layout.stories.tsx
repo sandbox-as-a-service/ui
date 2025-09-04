@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite"
 import {TwoColumnLayout} from "./two-column-layout"
 
 const meta: Meta<typeof TwoColumnLayout> = {
-  title: "Components/Layout/TwoColumnLayout",
+  title: "OpReg/TwoColumnLayout",
   component: TwoColumnLayout,
   parameters: {
     layout: "fullscreen",

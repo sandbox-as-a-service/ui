@@ -27,7 +27,7 @@ export function PollCard({poll, votedOptionId}: PollCardProps) {
   const currentVotedOptionId = votedOptionId || votedFor
 
   return (
-    <Card className="hover:bg-foreground/1 w-full cursor-pointer rounded-none py-4 shadow-none md:w-[600px]">
+    <Card className="w-full cursor-pointer rounded-none py-4 shadow-none md:w-[600px]">
       <CardHeader>
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row">
           <div className="flex w-full flex-row justify-between gap-2 md:justify-start">
