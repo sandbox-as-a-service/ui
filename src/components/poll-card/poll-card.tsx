@@ -2,12 +2,12 @@ import {BadgeCheck, Bookmark, Copy, Dot, Globe, RefreshCcw, Rewind, Sigma, Tag} 
 import {useState} from "react"
 
 import {cn} from "../../lib/utils"
-import {TypographyMuted, TypographyP} from "../ui"
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "../ui/accordion/accordion"
 import {Badge} from "../ui/badge"
 import {Button} from "../ui/button"
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "../ui/card"
 import {Tooltip, TooltipContent, TooltipTrigger} from "../ui/tooltip"
+import {TypographyMuted, TypographyP} from "../ui/typography"
 import type {PollFeedPageItem} from "./fixtures"
 
 type PollCardProps = {
