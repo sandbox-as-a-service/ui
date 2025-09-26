@@ -12,13 +12,18 @@ on:
     inputs:
       bump:
         description: "Which semver segment to bump"
-        required: false
+        required: true
         default: "patch"
         type: choice
         options:
           - patch
           - minor
           - major
+      should_run:
+       description: "Should Run"
+       required: true
+       default: false
+       type: boolean
 
 jobs:
   release:
