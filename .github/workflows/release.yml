@@ -12,7 +12,7 @@ on:
     inputs:
       bump:
         description: "Which semver segment to bump"
-        required: true
+        required: false
         default: "patch"
         type: choice
         options:
