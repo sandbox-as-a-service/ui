@@ -20,10 +20,10 @@ on:
           - minor
           - major  
       should_run:
-       description: "Should Run"
-       required: true
-       default: false
-       type: boolean
+        description: "Should Run"
+        required: true
+        default: false
+        type: boolean
 
 jobs:
   release:
