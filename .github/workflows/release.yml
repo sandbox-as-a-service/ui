@@ -18,7 +18,7 @@ on:
         options:
           - patch
           - minor
-          - major
+          - major  
       should_run:
        description: "Should Run"
        required: true
